@@ -78,6 +78,9 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha01")
 
+    // Eta background color er jonno
+    implementation("com.android.support:palette-v7:28.0.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

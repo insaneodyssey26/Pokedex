@@ -19,7 +19,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PokedexTheme {
-
             }
         }
     }
