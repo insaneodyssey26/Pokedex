@@ -19,7 +19,9 @@ import androidx.navigation.compose.composable
 import com.masum.pokedex.ui.theme.PokedexTheme
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +50,9 @@ class MainActivity : ComponentActivity() {
                         val dominantColor  = remember {
                             val color = it.arguments?.getInt("dominantColor")
                             color?.let { Color(it)  } ?: Color.White
+                        }
+                        val pokemonName = remember {
+                            it.arguments?.getString("pokemonName")
                         }
                     }
                 }
