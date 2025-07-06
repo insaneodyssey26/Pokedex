@@ -22,7 +22,7 @@ val RobotoCondensed = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    body1 = TextStyle(
+    bodyLarge = TextStyle(
         fontFamily = Roboto,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp

@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("org.jetbrains.kotlin.kapt")
+    alias(libs.plugins.ksp) // Replace kapt with KSP
     alias(libs.plugins.hilt) // Use the alias from the version catalog for Hilt
 }
 
@@ -55,25 +55,25 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.9.1")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
 
-    // Retrofit er jinish potro  (HTTP requests er jonne use kora hoy)
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-    implementation("com.squareup.okhttp3:okhttp:5.0.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0")
+    // Retrofit and OkHttp (Compatible versions)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     //Timber  (Jani na keno use hoy)
     implementation("com.jakewharton.timber:timber:5.0.1")
 
     // Coroutines (Asynchronous programming er jonne use kora hoy)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
     // Coil
-    implementation("io.coil-kt:coil:2.7.0")
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
-    // Dagger - Hilt (Dependency Injection)
-    implementation("com.google.dagger:hilt-android:2.51")
-    kapt("com.google.dagger:hilt-android-compiler:2.51")
+    // Dagger - Hilt (Compatible versions with KSP)
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    ksp("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     testImplementation(libs.junit)
