@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
@@ -47,6 +48,14 @@ fun PokemonListScreen(
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally)
             )
+            SearchBar(
+                hint = "Search...",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+
+            }
         }
     }
 }
@@ -83,5 +92,13 @@ fun SearchBar(
                     isHintVisible = ! it.isFocused
                 }
         )
+        if (isHintVisible) {
+            Text(
+                text = hint,
+                color = Color.LightGray,
+                modifier = Modifier
+                    .padding(horizontal = 20.dp, vertical = 12.dp)
+            )
+        }
     }
 }
