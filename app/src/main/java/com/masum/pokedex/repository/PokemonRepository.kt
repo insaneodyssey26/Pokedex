@@ -3,6 +3,7 @@ package com.masum.pokedex.repository
 import androidx.compose.ui.geometry.Offset
 import com.masum.pokedex.data.remote.responses.PokeAPI
 import com.masum.pokedex.data.remote.responses.PokemonList
+import com.masum.pokedex.util.Resource
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
@@ -10,11 +11,12 @@ import javax.inject.Inject
 class PokemonRepository @Inject constructor(
     private val api : PokeAPI
 ) {
-    suspend fun PokemonList(limit: Int, offset: Int) : PokemonList {
+    suspend fun PokemonList(limit: Int, offset: Int) : Resource<PokemonList> {
         val response = try {
             api.getPokemonList(limit, offset)
         } catch (e: Exception) {
-
+            return Resource.Error ("Unknown error occurred" )
         }
+        return Resource.Success(response)
     }
 }
