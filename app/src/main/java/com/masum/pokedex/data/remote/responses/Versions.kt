@@ -1,12 +1,12 @@
 package com.masum.pokedex.data.remote.responses
 
 data class Versions(
-    val generation-i: GenerationI,
-    val generation-ii: GenerationIi,
-    val generation-iii: GenerationIii,
-    val generation-iv: GenerationIv,
-    val generation-v: GenerationV,
-    val generation-vi: GenerationVi,
-    val generation-vii: GenerationVii,
-    val generation-viii: GenerationViii
+    val generationi: GenerationI,
+    val generationii: GenerationIi,
+    val generationiii: GenerationIii,
+    val generationiv: GenerationIv,
+    val generationv: GenerationV,
+    val generationvi: GenerationVi,
+    val generationvii: GenerationVii,
+    val generationviii: GenerationViii
 )

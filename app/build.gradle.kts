@@ -1,9 +1,9 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp) // Replace kapt with KSP
-    alias(libs.plugins.hilt) // Use the alias from the version catalog for Hilt
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
 }
 
 android {
@@ -71,10 +71,11 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil-compose:2.7.0")
 
-    // Dagger - Hilt (Compatible versions with KSP)
     implementation("com.google.dagger:hilt-android:2.51.1")
-    ksp("com.google.dagger:hilt-android-compiler:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    implementation("androidx.compose.compiler:compiler:1.5.14")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

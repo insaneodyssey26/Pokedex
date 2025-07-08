@@ -1,6 +1,5 @@
 package com.masum.pokedex.data.remote.responses
 
-import com.google.gson.internal.NumberLimits
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
