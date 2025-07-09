@@ -38,6 +38,7 @@ import androidx.navigation.NavController
 import com.masum.pokedex.R
 import com.masum.pokedex.data.models.PokedexListEntry
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 
 @Composable
 fun PokemonListScreen(
@@ -145,6 +146,10 @@ fun PokedexEntry (
                 )
             }
     ){
+        Column {
+            AsyncImage(
 
+            )
+        }
     }
 }
