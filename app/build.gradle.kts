@@ -76,6 +76,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     implementation("androidx.compose.compiler:compiler:1.5.14")
+    implementation("androidx.palette:palette:1.0.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
