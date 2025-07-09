@@ -38,7 +38,9 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.masum.pokedex.R
 import com.masum.pokedex.data.models.PokedexListEntry
@@ -47,6 +49,7 @@ import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.masum.pokedex.ui.theme.RobotoCondensed
 
 @Composable
 fun PokemonListScreen(
@@ -180,6 +183,13 @@ fun PokedexEntry (
                         dominantColor = color
                     }
                 }
+                Text(
+                    text = entry.pokemonName,
+                    fontFamily = RobotoCondensed,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }
