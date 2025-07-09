@@ -2,6 +2,7 @@ package com.masum.pokedex.pokemonlist
 
 import android.icu.text.StringSearch
 import android.telecom.StatusHints
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,9 +14,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,12 +28,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -39,6 +44,9 @@ import com.masum.pokedex.R
 import com.masum.pokedex.data.models.PokedexListEntry
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 
 @Composable
 fun PokemonListScreen(
@@ -55,7 +63,6 @@ fun PokemonListScreen(
                 contentDescription = "Pokemon Logo",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally)
                     .padding(25.dp)
             )
             SearchBar(
@@ -123,7 +130,7 @@ fun PokedexEntry (
     viewModel: PokemonListViewModel = hiltViewModel()
 ) {
     val defaultDominantColor = MaterialTheme.colorScheme.surface
-    val dominantColor by remember {
+    var dominantColor by remember {
         mutableStateOf(defaultDominantColor)
     }
     Box (
@@ -147,9 +154,33 @@ fun PokedexEntry (
             }
     ){
         Column {
-            AsyncImage(
-
+            val painter = rememberAsyncImagePainter(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(entry.imageUrl)
+                    .crossfade(true)
+                    .build()
             )
+            val state = painter.state
+            Box(contentAlignment = Alignment.Center) {
+                Image(
+                    painter = painter,
+                    contentDescription = entry.pokemonName,
+                    modifier = Modifier.size(120.dp)
+                )
+                if (state is AsyncImagePainter.State.Loading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .scale(0.5f),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+                if (state is AsyncImagePainter.State.Success) {
+                    val drawable = (state.result.drawable)
+                    viewModel.DominantColor(drawable) { color ->
+                        dominantColor = color
+                    }
+                }
+            }
         }
     }
 }

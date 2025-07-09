@@ -7,8 +7,9 @@ import com.masum.pokedex.data.remote.responses.PokemonList
 import com.masum.pokedex.util.Resource
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ActivityScoped
+@Singleton
 class PokemonRepository @Inject constructor(
     private val api : PokeAPI
 ) {
