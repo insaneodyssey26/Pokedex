@@ -30,6 +30,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.masum.pokedex.R
+import com.masum.pokedex.data.models.PokedexListEntry
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun PokemonListScreen(
@@ -103,5 +105,18 @@ fun SearchBar(
                     .padding(horizontal = 20.dp, vertical = 12.dp)
             )
         }
+    }
+}
+
+@Composable
+fun PokedexEntry (
+    entry: PokedexListEntry,
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    viewModel: PokemonListViewModel = hiltViewModel()
+) {
+    val defaultDominantColor = MaterialTheme.colorScheme.surface
+    val dominantColor = remember {
+        mutableStateOf(defaultDominantColor)
     }
 }
