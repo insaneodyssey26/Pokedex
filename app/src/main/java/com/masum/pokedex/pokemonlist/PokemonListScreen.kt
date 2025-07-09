@@ -74,7 +74,9 @@ fun SearchBar(
         mutableStateOf(hint != "")
     }
 
-    Box(modifier = Modifier) {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 20.dp)) {
         BasicTextField(
             value = text,
             onValueChange = {
