@@ -170,7 +170,7 @@ fun PokedexEntry (
     }
     Box (
         contentAlignment = Alignment.Center,
-        modifier = Modifier
+        modifier = modifier
             .shadow(5.dp, RoundedCornerShape(10.dp))
             .clip(RoundedCornerShape(10.dp))
             .aspectRatio(1f)
