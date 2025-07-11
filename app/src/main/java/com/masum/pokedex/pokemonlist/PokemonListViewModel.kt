@@ -29,6 +29,9 @@ class PokemonListViewModel @Inject constructor(
     fun loadPokemonPaginated() {
         viewModelScope.launch {
             val result = repository.PokemonList(PAGE_SIZE, currPage * PAGE_SIZE)
+            when(result) {
+                is Resour
+            }
         }
     }
     fun DominantColor (drawable: Drawable, onFinish: (Color) -> Unit) {
