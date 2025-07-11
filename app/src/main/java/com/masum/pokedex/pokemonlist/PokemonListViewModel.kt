@@ -5,7 +5,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.masum.pokedex.repository.PokemonRepository
@@ -16,6 +15,7 @@ import com.masum.pokedex.data.models.PokedexListEntry
 import com.masum.pokedex.util.Constants.PAGE_SIZE
 import com.masum.pokedex.util.Resource
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
@@ -45,7 +45,9 @@ class PokemonListViewModel @Inject constructor(
                             entry.url.takeLastWhile { it.isDigit() }
                         }
                         val url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png"
-                        PokedexListEntry(entry.name.capitalize(java.util.Locale.ROOT), url, number.toInt())
+                        PokedexListEntry(entry.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(
+                            Locale.ROOT
+                        ) else it.toString() }, url, number.toInt())
                     }
                     currPage++
                     loadError.value = ""
