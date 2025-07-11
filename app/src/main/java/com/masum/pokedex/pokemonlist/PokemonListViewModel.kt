@@ -19,6 +19,9 @@ class PokemonListViewModel @Inject constructor(
 
     private val currPage = 0
     var pokemonList = mutableStateOf<List<PokedexListEntry>>(listOf())
+    val loadError = mutableStateOf("")
+    val isLoading = mutableStateOf(false)
+    val endReached = mutableStateOf(false)
     fun DominantColor (drawable: Drawable, onFinish: (Color) -> Unit) {
         val bmap = (drawable as BitmapDrawable).bitmap.copy(Bitmap.Config.ARGB_8888, true)
 
