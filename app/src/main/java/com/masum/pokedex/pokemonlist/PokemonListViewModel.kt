@@ -13,6 +13,7 @@ import javax.inject.Inject
 import androidx.palette.graphics.Palette
 import com.masum.pokedex.data.models.PokedexListEntry
 import com.masum.pokedex.util.Constants.PAGE_SIZE
+import com.masum.pokedex.util.Resource
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -30,7 +31,19 @@ class PokemonListViewModel @Inject constructor(
         viewModelScope.launch {
             val result = repository.PokemonList(PAGE_SIZE, currPage * PAGE_SIZE)
             when(result) {
-                is Resour
+                is Resource.Success -> {
+                    endReached.value = currPage * PAGE_SIZE >= result.data!!.count
+                    val PokedexListEntry = result.data.results.mapIndexed { index, entry ->
+                        val number = if(entry.url.endsWith("/")) {
+                            entry.url.dropLast(1).takeLastWhile { it.isDigit() }
+                        } else {
+                            entry.url.takeLastWhile { it.isDigit() }
+                        }
+                    }
+                }
+                is Resource.Error -> {
+
+                }
             }
         }
     }
