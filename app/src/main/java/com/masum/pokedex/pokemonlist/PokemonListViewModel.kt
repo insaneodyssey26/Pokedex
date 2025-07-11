@@ -22,7 +22,7 @@ class PokemonListViewModel @Inject constructor(
     private val repository : PokemonRepository
 ) : ViewModel() {
 
-    private val currPage = 0
+    private var currPage = 0
     var pokemonList = mutableStateOf<List<PokedexListEntry>>(listOf())
     val loadError = mutableStateOf("")
     val isLoading = mutableStateOf(false)
@@ -43,9 +43,14 @@ class PokemonListViewModel @Inject constructor(
                         val url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png"
                         PokedexListEntry(entry.name.capitalize(java.util.Locale.ROOT), url, number.toInt())
                     }
+                    currPage++
+                    loadError.value = ""
+                    isLoading.value = false
+                    pokemonList.value += PokedexListEntry
                 }
                 is Resource.Error -> {
-
+                   loadError.value = result.message!!
+                    isLoading.value = false
                 }
             }
         }
