@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -188,7 +189,11 @@ fun PokedexEntry (
                 )
             }
     ){
-        Column {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
             val painter = rememberAsyncImagePainter(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(entry.imageUrl)
@@ -196,7 +201,7 @@ fun PokedexEntry (
                     .build()
             )
             val state = painter.state
-            Box(contentAlignment = Alignment.Center) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(1f)) {
                 Image(
                     painter = painter,
                     contentDescription = entry.pokemonName,
@@ -215,14 +220,17 @@ fun PokedexEntry (
                         dominantColor = color
                     }
                 }
-                Text(
-                    text = entry.pokemonName,
-                    fontFamily = RobotoCondensed,
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = entry.pokemonName,
+                fontFamily = RobotoCondensed,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center,
+                color = Color.Black,
+                modifier = Modifier.fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            )
         }
     }
 }
