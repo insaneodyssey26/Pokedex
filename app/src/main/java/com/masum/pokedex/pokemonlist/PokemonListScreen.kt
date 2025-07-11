@@ -51,6 +51,7 @@ import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.masum.pokedex.data.remote.responses.PokemonList
 import com.masum.pokedex.ui.theme.RobotoCondensed
 
 @Composable
@@ -125,6 +126,19 @@ fun SearchBar(
             )
         }
     }
+}
+
+@Composable
+fun PokemonList (
+    navController: NavController,
+    viewModel: PokemonListViewModel = hiltViewModel()
+) {
+    val PokemonList by remember { viewModel.pokemonList }
+    val endReached by remember { viewModel.endReached }
+    val loadError by remember { viewModel.loadError }
+    val isLoading by remember { viewModel.isLoading }
+
+
 }
 
 @Composable
