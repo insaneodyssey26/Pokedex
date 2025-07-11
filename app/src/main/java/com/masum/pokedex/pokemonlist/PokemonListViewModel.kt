@@ -28,6 +28,10 @@ class PokemonListViewModel @Inject constructor(
     val isLoading = mutableStateOf(false)
     val endReached = mutableStateOf(false)
 
+    init {
+        loadPokemonPaginated()
+    }
+
     fun loadPokemonPaginated() {
         viewModelScope.launch {
             val result = repository.PokemonList(PAGE_SIZE, currPage * PAGE_SIZE)
