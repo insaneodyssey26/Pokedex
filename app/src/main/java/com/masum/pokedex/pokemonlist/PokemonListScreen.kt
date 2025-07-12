@@ -46,6 +46,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
@@ -56,7 +57,8 @@ import com.masum.pokedex.ui.theme.RobotoCondensed
 
 @Composable
 fun PokemonListScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: PokemonListViewModel = hiltViewModel()
 ) {
     Surface (
         color = MaterialTheme.colorScheme.background,
@@ -77,7 +79,7 @@ fun PokemonListScreen(
                     .fillMaxWidth()
                     .padding(20.dp)
             ) {
-
+                viewModel.searchPokemonList(it)
             }
             Spacer(modifier = Modifier.height(16.dp))
             PokemonList(navController = navController)
@@ -116,7 +118,7 @@ fun SearchBar(
                 .background(Color.White,CircleShape)
                 .padding(horizontal = 20.dp, vertical = 12.dp)
                 .onFocusChanged{
-                    isHintVisible = ! it.isFocused
+                    isHintVisible = ! it.isFocused && text.isNotEmpty()
                 }
         )
         if (isHintVisible) {
@@ -139,6 +141,7 @@ fun PokemonList (
     val endReached by remember { viewModel.endReached }
     val loadError by remember { viewModel.loadError }
     val isLoading by remember { viewModel.isLoading }
+    val isSearching by remember { viewModel.isSearching }
 
     LazyColumn (contentPadding = PaddingValues(16.dp)){
         val itemCount = if (PokemonList.size % 2 == 0) {
@@ -147,7 +150,7 @@ fun PokemonList (
             PokemonList.size / 2 + 1
         }
         items (itemCount){
-            if (it >= itemCount - 1 && !endReached && !isLoading) {
+            if (it >= itemCount - 1 && !endReached && !isLoading && !isSearching ) {
                 viewModel.loadPokemonPaginated()
             }
             PokedexRow(rowIndex = it, entries = PokemonList, navController = navController)
