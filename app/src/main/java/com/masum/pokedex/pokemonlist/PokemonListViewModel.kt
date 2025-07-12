@@ -28,6 +28,10 @@ class PokemonListViewModel @Inject constructor(
     val isLoading = mutableStateOf(false)
     val endReached = mutableStateOf(false)
 
+    private var cachedPokemonList = listOf<PokedexListEntry>()
+    private var isSearchStarting = true
+    var isSearching = mutableStateOf(false)
+
     init {
         loadPokemonPaginated()
     }
