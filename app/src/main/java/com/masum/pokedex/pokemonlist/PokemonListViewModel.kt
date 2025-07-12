@@ -40,32 +40,26 @@ class PokemonListViewModel @Inject constructor(
     }
 
     fun searchPokemonList(query: String) {
-        val listToSearch = if (isSearchStarting) {
-            pokemonList.value
-        } else {
-            cachedPokemonList
+        if (query.isEmpty()) {
+            pokemonList.value = cachedPokemonList
+            isSearching.value = false
+            isSearchStarting = true
+            return
         }
-        viewModelScope.launch (Dispatchers.Default){
-            if (query.isEmpty()) {
-                pokemonList.value = cachedPokemonList
-                isSearching.value = false
-                isSearchStarting = true
-                return@launch
-            }
-            val results = listToSearch.filter {
-                it.pokemonName.contains(query.trim(), ignoreCase = true) ||
-                        it.number.toString() == query.trim()
-            }
-            if (isSearchStarting) {
-                cachedPokemonList = pokemonList.value
-                isSearchStarting = false
-            }
-            pokemonList.value = results
-            isSearching.value = true
+        if (isSearchStarting) {
+            cachedPokemonList = pokemonList.value
+            isSearchStarting = false
         }
+        val results = cachedPokemonList.filter {
+            it.pokemonName.contains(query.trim(), ignoreCase = true) ||
+                    it.number.toString() == query.trim()
+        }
+        pokemonList.value = results
+        isSearching.value = true
     }
 
     fun loadPokemonPaginated() {
+        if (isSearching.value) return // Prevent pagination while searching
         viewModelScope.launch {
             val result = repository.PokemonList(PAGE_SIZE, currPage * PAGE_SIZE)
             when(result) {
