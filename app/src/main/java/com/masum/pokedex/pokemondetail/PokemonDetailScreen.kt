@@ -60,6 +60,8 @@ import java.sql.Types
 import java.util.Locale
 import kotlin.math.round
 import com.masum.pokedex.R
+import com.masum.pokedex.util.parseStatToAbbr
+import com.masum.pokedex.util.parseStatToColor
 
 @Composable
 fun PokemonDetailScreen(
@@ -340,7 +342,7 @@ fun PokemonStat (
             .height(height)
             .clip(CircleShape)
             .background(
-                if(isSystemInDarkTheme()) {
+                if (isSystemInDarkTheme()) {
                     Color(0xFF505050)
                 } else {
                     Color.LightGray
@@ -365,6 +367,39 @@ fun PokemonStat (
                 text = (currPercent.value * statMaxValue).toInt().toString(),
                 fontWeight = FontWeight.Bold
             )
+        }
+    }
+}
+
+@Composable
+fun PokemonBaseStats(
+    pokemonInfo: Pokemon,
+    animDelayPerItem: Int = 100,
+) {
+    val maxStatValue = remember {
+        pokemonInfo.stats.maxOf { it.base_stat }
+    }
+    Column (
+        modifier = Modifier
+            .fillMaxWidth()
+    ){
+        Text(
+            text = "Base Stats:",
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+
+        for(i in pokemonInfo.stats.indices) {
+            val stat = pokemonInfo.stats[ i ]
+            PokemonStat(
+                statName = parseStatToAbbr(stat),
+                statValue = stat.base_stat,
+                statMaxValue = maxStatValue,
+                statColor = parseStatToColor(stat),
+                animDelay = i * animDelayPerItem
+            )
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
