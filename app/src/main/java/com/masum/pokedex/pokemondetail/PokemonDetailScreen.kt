@@ -304,3 +304,16 @@ fun PokemonDetailDataItem(
         )
     }
 }
+
+@Composable
+fun PokemonStat (
+    statName: String,
+    statValue: Int,
+    statMaxValue: Int
+    statColor: Color,
+    height: Dp = 28.dp,
+    animDuration: Int = 1000,
+    animDelay: Int = 0
+) {
+
+}
