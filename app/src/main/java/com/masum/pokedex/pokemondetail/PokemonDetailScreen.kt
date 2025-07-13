@@ -1,6 +1,5 @@
 package com.masum.pokedex.pokemondetail
 
-import android.R
 import android.text.Layout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,6 +54,8 @@ import com.masum.pokedex.util.parseTypeToColor
 import java.nio.file.WatchEvent
 import java.sql.Types
 import java.util.Locale
+import kotlin.math.round
+import com.masum.pokedex.R
 
 @Composable
 fun PokemonDetailScreen(
@@ -237,17 +240,46 @@ fun PokemonTypeSection(types: List<Type>) {
 
 @Composable
 fun PokemonDetailDataSection (
-
-    modifier: Modifier = Modifier
+   pokemonWeight: Int,
+    pokemonHeight: Int,
+    sectionHeight: Dp = 80.dp
 ) {
-    
+    val pokemonWeightInKg = remember {
+        round(pokemonWeight / 10f)
+    }
+    val pokemonHeightInM = remember {
+        round(pokemonHeight / 10f)
+    }
+    Row (
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        PokemonDetailDataItem(
+            dataValue = pokemonWeightInKg,
+            dataUnit = "kg",
+            dataIcon = painterResource(id = R.drawable.ic_weight),
+            modifier = Modifier
+                .weight(1f)
+        )
+        Spacer(modifier = Modifier
+            .size(1.dp, sectionHeight)
+            .background(Color.LightGray)
+        )
+        PokemonDetailDataItem(
+            dataValue = pokemonHeightInM,
+            dataUnit = "m",
+            dataIcon = painterResource(id = R.drawable.ic_height),
+            modifier = Modifier
+                .weight(1f)
+        )
+    }
 }
 
 @Composable
 fun PokemonDetailDataItem(
     dataValue: Float,
     dataUnit: String,
-    dataIcon: Painter
+    dataIcon: Painter,
     modifier: Modifier = Modifier
 ) {
     Column (
