@@ -171,7 +171,11 @@ fun PokemonDetailStateWrapper(
 ) {
     when(pokemonInfo) {
         is Resource.Success -> {
-
+            PokemonDetailSection(
+                pokemonInfo = pokemonInfo.data!!,
+                modifier = modifier
+                    .offset(y = (-20).dp)
+            )
         }
         is Resource.Error -> {
             Text(
@@ -207,6 +211,11 @@ fun PokemonDetailSection(
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurface
+        )
+        PokemonTypeSection(types = pokemonInfo.types)
+        PokemonDetailDataSection(
+            pokemonWeight = pokemonInfo.weight,
+            pokemonHeight = pokemonInfo.height
         )
     }
 }
