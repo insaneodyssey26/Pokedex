@@ -1,5 +1,9 @@
 package com.masum.pokedex.pokemondetail
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
@@ -23,5 +27,11 @@ fun PokemonDetailScreen(
     val PokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading<Pokemon>()) {
         value = viewModel.getPokemonInfo(pokemonName)
     }
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(dominantColor)
+        .padding(bottom = 16.dp)
+    ) {
 
+    }
 }
