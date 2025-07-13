@@ -12,6 +12,6 @@ class PokemonDetailViewModel @Inject constructor(
     private val repository: PokemonRepository
 ) : ViewModel() {
     suspend fun getPokemonInfo (pokemonName: String): Resource<Pokemon> {
-        return repository.getPokemonInfo(pokemonName)
+        return repository.PokemonInfo(pokemonName)
     }
 }

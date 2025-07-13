@@ -85,6 +85,9 @@ class PokemonListViewModel @Inject constructor(
                    loadError.value = result.message!!
                     isLoading.value = false
                 }
+                is Resource.Loading -> {
+                    // Optionally handle loading state
+                }
             }
         }
     }
